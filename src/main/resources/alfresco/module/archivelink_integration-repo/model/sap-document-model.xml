@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model name="sapDoc:document" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+    <!-- Optional meta-data about the model -->
+    <description>Document Model for SAP integration via ArchiveLink</description>
+    <author>Anna Wójciak</author>
+    <version>3.0</version>
+
+    <imports>
+        <!-- Import Alfresco Dictionary Definitions -->
+        <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d"/>
+        <!-- Import Alfresco Content Domain Model Definitions -->
+        <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm"/>
+        <!--  Import Alfresco System Model Definitions -->
+        <import uri="http://www.alfresco.org/model/system/1.0" prefix="sys"/>
+    </imports>
+
+    <!-- Custom namespace for your domain -->
+    <namespaces>
+        <namespace uri="http://www.beone.pl/sap-archivelink/documentmodel/1.0" prefix="sapDoc"/>
+        <namespace uri="http://www.beone.pl/sap-archivelink/certmodel/1.0" prefix="sapCert"/>
+    </namespaces>
+
+    <constraints>
+        <constraint name="sapDoc:documentTypeConstraint" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>PDF</value>
+                    <value>TIF</value>
+                    <value>TIFF</value>
+                    <value>DOC</value>
+                    <value>DOCX</value>
+                    <value>XLS</value>
+                    <value>XLSX</value>
+                    <value>PNG</value>
+                    <value>JPG</value>
+                    <value>JPEG</value>
+                    <value>BMP</value>
+                    <value>GIF</value>
+                    <value>TXT</value>
+                    <value>XML</value>
+                </list>
+            </parameter>
+        </constraint>
+
+        <constraint name="sapDoc:componentTypeConstraint" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>MAIN</value>
+                    <value>ATTACHMENT</value>
+                </list>
+            </parameter>
+        </constraint>
+    </constraints>
+
+    <types>
+        <type name="sapDoc:sapDocument">
+            <title>SAP ArchiveLink Document</title>
+            <description>Aspect for documents stored via SAP ArchiveLink</description>
+            <parent>sys:base</parent>
+            <properties>
+                <property name="sapDoc:docId">
+                    <title>SAP Document ID</title>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                </property>
+
+                <property name="sapDoc:contRep">
+                    <title>Content Repository ID</title>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                </property>
+
+                <property name="sapDoc:pVersion">
+                    <title>Protocol version</title>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                </property>
+
+                <property name="sapDoc:docType">
+                    <title>Document Type</title>
+                    <description>SAP document type (PDF, TIF, DOC, etc.)</description>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                </property>
+
+                <property name="sapDoc:docProt">
+                    <title>Document Protection</title>
+                    <description>Protection used for document (c, r, u, d)</description>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+
+                <property name="sapDoc:docFileName">
+                    <title>Original File Name</title>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+
+                <property name="sapDoc:version">
+                    <title>Document version</title>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+
+            </properties>
+            
+            <associations>
+
+                <child-association name="sapDoc:componentList">
+                    <target>
+                        <class>sapDoc:component</class>
+                        <mandatory>false</mandatory>
+                        <many>true</many>
+                    </target>
+                </child-association>
+
+                <child-association name="sapDoc:attachmentList">
+                    <target>
+                        <class>sapDoc:attachment</class>
+                        <mandatory>false</mandatory>
+                        <many>true</many>
+                    </target>
+                </child-association>
+            </associations>
+        </type>
+    </types>
+
+    <aspects>
+        <aspect name="sapDoc:component">
+            <title>SAP Document Component</title>
+            <description>Aspect for components of a SAP document</description>
+            <properties>
+                <property name="sapDoc:compId">
+                    <title>Component ID</title>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                </property>
+
+                <property name="sapDoc:compFileName">
+                    <title>Original File Name</title>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+
+                <property name="sapDoc:compType">
+                    <title>Component Type</title>
+                    <description>Type of component</description>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                </property>
+
+            </properties>
+        </aspect>
+
+        <aspect name="sapDoc:attachment">
+            <title>SAP Document Attachment</title>
+            <description>Aspect for attachments of a SAP document</description>
+            <properties>
+                <property name="sapDoc:attId">
+                    <title>Component ID</title>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                </property>
+
+                <property name="sapDoc:attFileName">
+                    <title>Original File Name</title>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+            </properties>
+        </aspect>
+        
+        <aspect name="sapCert:certAspect">
+            <title>SAP Certificate Aspect</title>
+            <description>Aspect for SAP certificate authentication</description>
+            <properties>
+                <property name="sapCert:isAccepted">
+                    <title>Accepted</title>
+                    <type>d:boolean</type>
+                    <default>false</default>
+                </property>
+            </properties>
+        </aspect>
+
+    </aspects>
+
+</model>

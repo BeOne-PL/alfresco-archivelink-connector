@@ -1,0 +1,8 @@
+<webscript>
+    <shortname>SAP ArchiveLink Component HTTP POST</shortname>
+    <description>SAP ArchiveLink integration HTTP POST Controller</description>
+    <url>/pl/beone/sap/archivelink</url>
+    <authentication>none</authentication>
+    <format default="json"></format>
+    <family>BeOne</family>
+</webscript>

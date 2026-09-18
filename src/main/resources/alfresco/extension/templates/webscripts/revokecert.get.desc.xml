@@ -1,0 +1,8 @@
+<webscript>
+    <shortname>SAP ArchiveLink Component HTTP GET</shortname>
+    <description>SAP ArchiveLink integration HTTP GET Controller</description>
+    <url>/pl/beone/sap/revokecert</url>
+    <authentication>admin</authentication>
+    <format default="json"></format>
+    <family>BeOne</family>
+</webscript>
